@@ -16,14 +16,14 @@ export default function Projects() {
       title: "Tesla Stock Prediction",
       desc: "Time-series forecasting using ARIMA & LSTM with visualization.",
       tech: ["Python", "LSTM", "ARIMA"],
-      link: "https://github.com/yourusername/tesla-stock",
+      link: "https://github.com/sanjanamadival/stock-market-prediction",
       img: "/images/tesla.png",
     },
     {
       title: "Currency Converter App",
       desc: "Flutter app for real-time currency conversion with APIs.",
       tech: ["Flutter", "Dart", "API"],
-      link: "https://github.com/yourusername/currency-converter",
+      link: "https://github.com/sanjanamadival/flutter-currency-converter-app",
       img: "/images/currency.jpg",
     },
   ];

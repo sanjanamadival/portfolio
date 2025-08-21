@@ -3,8 +3,14 @@
 import Navbar from "../components/Navbar";
 import { motion } from "framer-motion";
 import { FaGithub, FaExternalLinkAlt } from "react-icons/fa";
+import { useState, useEffect } from "react";
 
 export default function Experience() {
+  const internshipImages = Array.from(
+    { length: 19 },
+    (_, i) => `/internship/internship-${i + 1}.png`
+  );
+
   const experiences = [
     {
       role: "Software Development Intern",
@@ -18,14 +24,26 @@ export default function Experience() {
         "Collaborated using Git, GitHub, and Agile practices for sprint planning.",
       ],
       tech: ["MongoDB", "Express.js", "React.js", "Node.js", "Redux", "Material UI"],
-      github: "https://github.com/sanjanamadival/medical_reccomendation_system", // replace if different
-      certificate: "https://link-to-your-certificate.com", // replace with actual certificate link
-      images: [
-        "/healthcare-dashboard.png", // place these in your public/ folder
-        "/healthcare-form.png",
-      ],
+      github: "https://github.com/sanjanamadival/medical-logbook/tree/main",
+      certificate: "/images/internship.jpg",
+      images: internshipImages,
     },
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % experiences[0].images.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [experiences]);
+
+  const getVisibleImages = () => {
+    const prev = (currentIndex - 1 + experiences[0].images.length) % experiences[0].images.length;
+    const next = (currentIndex + 1) % experiences[0].images.length;
+    return [prev, currentIndex, next];
+  };
 
   return (
     <main className="bg-gray-900 text-white min-h-screen">
@@ -97,17 +115,26 @@ export default function Experience() {
                 ))}
               </div>
 
-              {/* Images */}
+              {/* Carousel with 3 images */}
               {exp.images && (
-                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {exp.images.map((img, i) => (
-                    <img
-                      key={i}
-                      src={img}
-                      alt="Project Screenshot"
-                      className="rounded-lg shadow-md border border-gray-700"
-                    />
-                  ))}
+                <div className="mt-6 relative flex justify-center items-center gap-4 h-64">
+                  {getVisibleImages().map((idx, i) => {
+                    const isCenter = i === 1;
+                    return (
+                      <motion.img
+                        key={idx}
+                        src={exp.images[idx]}
+                        alt={`Project Screenshot ${idx + 1}`}
+                        className={`rounded-lg shadow-md border border-gray-700 object-cover transition-all duration-500
+                          ${isCenter ? "w-80 h-64 z-10 scale-105" : "w-56 h-40 opacity-60 scale-90"}
+                        `}
+                        initial={{ opacity: 0, x: isCenter ? 0 : i === 0 ? -100 : 100 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8 }}
+                      />
+                    );
+                  })}
                 </div>
               )}
             </motion.div>
