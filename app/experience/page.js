@@ -15,7 +15,7 @@ export default function Experience() {
     {
       role: "Software Development Intern",
       company: "Ganglia Technologies Pvt Ltd",
-      duration: "Jan 2025 – Present",
+      duration: "Jan 2025 – Jun 2025",
       details: [
         "Built a full-stack medical logbook platform using MERN Stack and Redux.",
         "Developed RESTful APIs to securely fetch/store patient log entries.",
